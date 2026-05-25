@@ -5,7 +5,7 @@ import plotly.express as px
 from openai import OpenAI
 from dotenv import load_dotenv
 
-# Initialize configurations
+# Initialize platform parameters
 load_dotenv()
 
 st.set_page_config(
@@ -15,20 +15,21 @@ st.set_page_config(
 )
 
 # -----------------------------------------------------------------------------
-# SIDEBAR CONTROLS & METADATA
+# SIDEBAR CONTROL LAYOUT
 # -----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("## 🌍 BantuMarket")
     st.caption("Cross-Border Regional Trade Intelligence")
     st.markdown("---")
     
+    # Navigation matrix UI
     st.button("📋 Dashboard (Active)", use_container_width=True, type="secondary")
     st.button("🌿 Commodity Hub", use_container_width=True, type="secondary")
     st.button("🗺️ Regulatory Map", use_container_width=True, type="secondary")
     st.button("⚙️ Proxy Diagnostics", use_container_width=True, type="secondary")
     
     st.markdown("---")
-    st.markdown("### ⚙️ Routing Profiles")
+    st.markdown("### ⚙️ Routing Configuration Profiles")
     target_node = st.selectbox("Target Regional Node Proxy", [
         "West Africa Node (ECOWAS)", 
         "East Africa Node (EAC)", 
@@ -36,7 +37,7 @@ with st.sidebar:
     ])
     st.success("🔄 Connection Bridge: Active")
     st.markdown("---")
-    st.caption("Hackathon Build Framework v2.1")
+    st.caption("Hackathon Build Framework v2.2")
 
 # -----------------------------------------------------------------------------
 # MAIN APP HEADER & BRIGHT DATA INFRASTRUCTURE MATRIX
@@ -58,24 +59,25 @@ with grid_col4:
 st.markdown("---")
 
 # -----------------------------------------------------------------------------
-# ENGINE BACKEND PIPELINE
+# CORE BACKEND EXTRACTION ORCHESTRATION
 # -----------------------------------------------------------------------------
 if not os.getenv("OPENAI_API_KEY") or not os.getenv("BRIGHTDATA_API_TOKEN"):
-    st.error("❌ Credentials Missing: Please verify environment secrets configurations.")
+    st.error("❌ Configuration Credentials Missing: Please update your Streamlit Secrets or local .env properties.")
     st.stop()
 
+# Bright Data Cloud Endpoint Router Parameter Mapping
 api_token = os.getenv("BRIGHTDATA_API_TOKEN")
 brightdata_hosted_url = f"https://mcp.brightdata.com/mcp?token={api_token}&PRO_MODE=true"
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# Search Input Containers
+# Input Component Structures
 input_col, btn_col = st.columns([4, 1])
 
 with input_col:
     query = st.text_input(
         label="Query Handler Link",
         label_visibility="collapsed",
-        placeholder="Query local pricing directories or compliance streams...",
+        placeholder="Search regional wholesaler marketplaces, transport listings, or regulatory updates...",
         value="Verify Maize costs across AFEX warehouses in Nigeria and check for new cross-border tariffs in Benin."
     )
 
@@ -86,11 +88,15 @@ if submit_btn and query:
     with st.spinner("Executing Bright Data Remote MCP Tools..."):
         try:
             system_blueprint = (
-                "You are the BantuMarket Intel Agent. Use your toolsets via the unified MCP connection layer "
-                "to find real-time, ground-truth business listings and trade regulations across Africa. "
-                "Format responses cleanly into Markdown tables."
+                "You are the BantuMarket Intel Agent, an enterprise system tailored for cross-border African trade analytics.\n"
+                "You possess direct query integration over Bright Data web tools via your unified MCP gateway connection layer:\n"
+                "- Call 'search_engine' to target local African search variants (SERP API).\n"
+                "- Call 'scrape_as_markdown' to index static local directories without geoblocks (Web Unlocker).\n"
+                "- Call 'scraping_browser' functions automatically when processing complex interactive wholesaler pages.\n\n"
+                "Analyze the user's prompt, pull the requested trade data live, and format your output into markdown data metrics."
             )
             
+            # Executing the Open-Web Grounding Query Vector
             response = client.chat.completions.create(
                 model="gpt-4o",
                 messages=[
@@ -103,12 +109,12 @@ if submit_btn and query:
             with st.container(border=True):
                 st.markdown("### 📋 Real-Time Agent Intelligence Dossier")
                 st.markdown(response.choices[0].message.content)
-                st.success("✨ Stream Processing Finalized.")
+                st.success("✨ Extraction Stream Finalized Via Unified Cloud Infrastructure Nodes.")
         except Exception as e:
-            st.error(f"Pipeline Interface Error: {e}")
+            st.error(f"Pipeline Interface Process Exception: {e}")
 
 # -----------------------------------------------------------------------------
-# REFINED ENTERPRISE DATA LAYERS & PROFESSIONAL PLOTLY GRAPHS
+# GRAPHICS, METRICS & REFINED VISUALIZATION LAYER
 # -----------------------------------------------------------------------------
 st.markdown("### 📊 Market Analytics & Tracking Matrix")
 
@@ -116,8 +122,9 @@ with st.container(border=True):
     chart_col, data_col = st.columns([3, 2])
     
     with chart_col:
-        st.markdown("**📉 Price Disparity Tracking (USD / Metric Ton)**")
-        # Generate rich data array mapping localized variables
+        st.markdown("**📉 Price Disparity Corridors (USD / Metric Ton)**")
+        
+        # Formulate explicit comparative metrics dataset
         time_series_data = pd.DataFrame([
             {"Month": "Jan", "Price": 410, "Region": "Nigeria (AFEX Hub)"},
             {"Month": "Feb", "Price": 430, "Region": "Nigeria (AFEX Hub)"},
@@ -131,11 +138,13 @@ with st.container(border=True):
             {"Month": "May", "Price": 510, "Region": "Ghana (Esoko Node)"},
         ])
         
-        # Build professional styled Plotly graph
-        fig = px.line(time_series_data, x="Month", y="Price", color="Region", markers=True,
-                      color_discrete_sequence=["#1f77b4", "#ff7f0e"])
+        # Build professional styled Plotly line canvas layout
+        fig = px.line(
+            time_series_data, x="Month", y="Price", color="Region", markers=True,
+            color_discrete_sequence=["#1f77b4", "#ff7f0e"]
+        )
         fig.update_layout(
-            margin=dict(l=20, r=20, t=20, b=20),
+            margin=dict(l=20, r=20, t=15, b=20),
             height=240,
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
@@ -154,7 +163,7 @@ with st.container(border=True):
         df = pd.DataFrame(raw_market_data)
         st.dataframe(df, use_container_width=True, hide_index=True, height=240)
 
-# Performance Tracker Layout Block
+# Regional compliance tracking cards featuring custom integrated sparklines
 st.markdown("### 🛡️ Regional Compliance Parameters")
 metric_col1, metric_col2, metric_col3 = st.columns(3)
 
